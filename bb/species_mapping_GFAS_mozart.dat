@@ -1,0 +1,26 @@
+# Species mapping file for GFAS-MOZART emissions
+# Contains three parts 
+# (1) File locations & species setup
+# Note "SPC" in Destination_fileformat, "SPC" will be replaced by CESM species name
+# (2) mapping equations (yields can be either mass or molar yield)
+# Format: CESM_species[molecular weight] = yield*emission_inventory_species mass/molar sector vert
+# (3) molecular weights of species for emission species 
+# -> this is for the case that original emission files have wrong molecular weights or no information. 
+# === File locations Start ===
+Source_fileformat = '/glade/campaign/acom/acom-weather/emmons/HTAP3/emissions/gfas4htap/mozart/f09/gfas4htap-moz_*_bb_2003-2023_f09_c20260306.nc'
+Destination_fileformat = '/glade/campaign/acom/acom-weather/emmons/HTAP3/emissions/gfas4htap/mozart/f09/gfas4htap-moz_SPC_bb_2003-2023_f09_c20260306.nc'
+Source_unit = 'molecules cm-2 s-1'
+Destination_unit = 'molecules cm-2 s-1'
+#species_list = 'All'
+species_list = ['bc_a4', 'pom_a4', 'num_bc_a4', 'num_pom_a4']
+# === File locations End ===
+# === Mapping equations Start ===
+bc_a4[12]       =  1.0*BC       molar   [bb]  {sfc}
+pom_a4[12]      =  1.4*OC       molar   [bb]  {sfc}
+num_bc_a4[12]   =  1.0*BC       molar   [bb]  {sfc}   0.261e-6   1700
+num_pom_a4[12]  =  1.4*OC       molar   [bb]  {sfc}   0.261e-6   1000
+# === Mapping equations End ===
+# === Molecular weights (assumed in source files) Start ===
+BC = 12
+OC = 12
+# === Molecular weights (from emission inventory) End ===

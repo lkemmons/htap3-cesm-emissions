@@ -1,0 +1,29 @@
+# Species mapping file for HTAP aircraft emissions
+# Contains three parts 
+# (1) File locations & species setup
+# Note "SPC" in Destination_fileformat, "SPC" will be replaced by CESM species name
+# (2) mapping equations (yields can be either mass or molar yield)
+# Format: CESM_species[molecular weight] = yield*emission_inventory_species mass/molar sector vert
+# (3) molecular weights of species for emission species 
+# -> this is for the case that original emission files have wrong molecular weights or no information. 
+# === File locations Start ===
+Source_fileformat = '/glade/campaign/acom/acom-weather/emmons/HTAP3/emissions/aircraft/f09/units_kg/HTAP3-aircraft_200001-210012_f09_*_kgm2s_c20251126.nc'
+Destination_fileformat = '/glade/campaign/acom/acom-weather/emmons/HTAP3/emissions/aircraft/f09/HTAP3-aircraft_200001-210012_f09_SPC_moleccm3s_c20251126.nc'
+Source_unit = 'kg m-2 s-1'
+Destination_unit = 'molecules cm-2 s-1'
+#species_list = 'All'
+species_list = ['NO2', 'SO2', 'CO', 'bc_a4','num_bc_a4']
+# === File locations End ===
+# === Mapping equations Start ===
+NO2[46]        =  1.0*NOx             molar   [NOx_em_AIR_anthro]   {aircraft}
+SO2[64]        =  1.0*SO2             molar   [SO2_em_AIR_anthro]   {aircraft}
+CO[28]         =  1.0*CO              molar   [CO_em_AIR_anthro]   {aircraft}
+bc_a4[12]      =  1.0*BC               mass   [BC_em_AIR_anthro]   {aircraft}
+num_bc_a4[12]  =  1.0*BC               mass   [BC_em_AIR_anthro]   {aircraft}   0.134e-6   1700
+# === Mapping equations End ===
+# === Molecular weights (from emission inventory) Start ===
+NOx = 46
+SO2 = 64
+CO = 28
+BC = 12
+# === Molecular weights (from emission inventory) End ===
